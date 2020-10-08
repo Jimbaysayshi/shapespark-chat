@@ -1,0 +1,485 @@
+<head>
+
+  <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap' rel='stylesheet'>
+
+</head>
+<style>
+  #play-button {
+    display: block;
+  }
+
+  .hudBasic {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    transition: right 1s ease;
+    transition-property: right;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+  }
+
+  #x-button {
+    float: right;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(0, 0, 0, 0.0);
+    outline-color: rgba(0, 0, 0, 0.3);
+    border: none;
+
+    background-image: url('<path-to-close-icon>');
+    background-repeat: no-repeat;
+  }
+
+  .chat-button-close#x-button {
+    margin-right: 10px;
+  }
+
+  #hudTitle {
+    position: relative;
+    padding-right: 10px;
+  }
+
+  #hudChatWrapper {
+    overflow: hidden;
+    z-index: 101;
+    position: absolute;
+    bottom: -200px;
+    right: 8px;
+    width: 290px;
+    height: 900px;
+  }
+
+  #hudChat {
+    background-color: rgba(0, 0, 0, 0.0);
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: absolute;
+    width: 290px;
+    height: 70%;
+    right: -350px;
+    z-index: 10;
+
+    text-align: center;
+    transition: right 1s ease;
+    transition-property: right;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    float: right;
+  }
+
+  #hudChatLock {
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: absolute;
+    padding: 20px;
+    display: inline-flex;
+    width: 290px;
+    height: 70%;
+    right: -350px;
+    z-index: 110;
+    text-align: center;
+    transition: right 1s ease;
+    transition-property: right;
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    float: right;
+  }
+
+  #chatNameForm {
+    margin: auto;
+    text-align: center;
+    display: grid;
+  }
+
+  .chatFormElements {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    margin: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    height: 30px;
+    -webkit-transition: background-color 0.5s ease-out, border-radius 0.5s;
+    -moz-transition: background-color 0.5s ease-out, border-radius 0.5s;
+    -o-transition: background-color 0.5s ease-out, border-radius 0.5s;
+    transition: background-color 0.5s ease-out, border-radius 0.5s;
+  }
+
+  .chatFormElements:focus {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, 0.8);
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.8);
+    border-radius: 6px;
+  }
+
+  .chatFormElements:focus::placeholder {
+    color: rgba(255, 255, 255, 0);
+  }
+
+  .chatFormElements::placeholder {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  #chatNameInput:active {
+    transform: translateY(2px);
+  }
+
+  #chatSettings {
+    width: 100%;
+    height: 5%;
+  }
+
+  #chatWindow {
+    background-color: rgb(255, 255, 255, 0.3);
+    margin: auto;
+    width: 95%;
+    height: 80%;
+    text-align: left;
+    overflow: auto;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 6px;
+  }
+
+  #chatMessage {
+    width: 100%;
+    height: 15%;
+    padding: 8px;
+  }
+
+  #chatTextarea {
+    padding: 4px;
+    color: rgb(255, 255, 255, 0.6);
+    border-radius: 4px;
+    height: 76px;
+    width: 74%;
+    float: left;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: semibold;
+    font-size: 18px;
+    resize: none;
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow: auto;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+    outline: none;
+  }
+
+
+  #chatTextarea:placeholder {
+    background-color: rgb(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  #chatTextarea:hover {
+    background-color: rgb(255, 255, 255, 0.6);
+    color: black;
+  }
+
+  #chatTextarea:focus {
+    background-color: rgb(255, 255, 255, 0.8);
+    color: black;
+  }
+
+  #sendMessageBtn {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    width: 25%;
+    height: 76px;
+    float: right;
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    -webkit-transition: background-color 0.25s ease-out;
+    -moz-transition: background-color 0.25s ease-out;
+    -o-transition: background-color 0.25s ease-out;
+    transition: background-color 0.25s ease-out;
+    outline: none;
+  }
+
+  #sendMessageBtn:hover {
+    background-color: rgb(0, 0, 0, 0.6);
+  }
+
+  #sendMessageBtn:active {
+    background-color: rgb(0, 0, 0, 0.8);
+    transform: translateY(2px);
+  }
+
+  #pDiv {
+    padding: 2px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+    white-space: initial;
+  }
+
+  .messageDiv {
+    font-family: "Montserrat", sans-serif;
+    font-size: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: large;
+    background-color: rgb(255 255 255 / 60%);
+    border: 2px solid;
+    border-radius: 4%;
+    border-color: #00000042;
+    color: black;
+    display: flex;
+  }
+
+  textarea:focus {
+    outline: none;
+  }
+
+  #chatTitle {
+    font-family: "Montserrat", sans-serif;
+    margin-left: 10px;
+    color: rgba(0, 0, 0, 0.85);
+    float: left;
+    font-size: x-large;
+    font-weight: bold;
+  }
+
+  .deleteMsgBtn {
+    width: 20px;
+    height: 26px;
+    float: right;
+    border: none;
+    background: transparent url('<path-to-trashbin.png>') no-repeat top;
+
+  }
+
+  .deleteMsgBtn:focus {
+    outline: 1px solid rgba(0, 0, 0, 0.6);
+  }
+
+
+  /*Shapespark original*/
+  #menu-bar-content {
+    min-width: 52px;
+    height: 52px;
+
+    line-height: 26px;
+  }
+
+  .menu-item {
+    min-width: 52px;
+    height: 52px;
+    padding: 13px 6px 13px 6px;
+    line-height: 26px;
+    -webkit-transition: background-color 0.25s ease-out;
+    -moz-transition: background-color 0.25s ease-out;
+    -o-transition: background-color 0.25s ease-out;
+    transition: background-color 0.25s ease-out;
+  }
+
+  .ui-right {
+    right: 10px;
+  }
+
+  .ui-bottom {
+    bottom: 10px;
+  }
+
+  /*Shapespark original*/
+</style>
+
+<body>
+
+  <!--Chat-->
+  <div id='hudChatWrapper'>
+    <div id='hudChatLock'>
+      <div id='chatNameForm'>
+        <h3>Join the conversation by giving your username</h3>
+        <input type='text' id='chatNameInput' name='chatUsername' class='chatFormElements' placeholder="Username"
+          spellcheck="false">
+        <button class='chatFormElements' onclick="setUserName()">Save</button>
+      </div>
+
+    </div>
+    <div id='hudChat' class='hudBasic'>
+      <div id='chatSettings'>
+        <div id='chatTitle'>Chat</div>
+        <button id='x-button' class='close-help-button ui-close-hoverable chat-button-close'
+          onclick='openChat()'></button>
+      </div>
+
+      <div id='chatWindow'>
+
+        <!--Messages come here-->
+
+      </div>
+      <div id='chatMessage'>
+        <div>
+          <textarea id='chatTextarea' placeholder='Write message...' rows='3' maxlength='100'
+            spellcheck='false'></textarea>
+          <button id="sendMessageBtn" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "XXXXXXXXXXXXXXXXXXXXXXXX",
+      authDomain: "XXXXXXXX.firebaseapp.com",
+      databaseURL: "https://XXXXXXXXX.firebaseio.com",
+      projectId: "XXXXXXXX",
+      storageBucket: "XXXXXXXXX.appspot.com",
+      messagingSenderId: "XXXXXXXXXXXXX",
+      appId: "X:XXXXXXXXXXXX:XXX:XXXXXXXXXXXXXXXXXX",
+      measurementId: "X-XXXXXXXXX"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+
+    var userName = 'id';
+    var chatOpen = false;
+    var viewer = WALK.getViewer();
+    //how long messages are held 
+    var deleteMessagesMinutes = 15;
+    //room name directs chat messages to right room
+    const roomName = 'example-room'
+
+    //create a chat button
+    var hudChatbutton = viewer.addMenuButton(
+      '<path-to-chat-icon>');
+    hudChatbutton.addEventListener('click', function () {
+      openChat();
+    }, { passive: true });
+
+    /*Listen to new messages in firebase*/
+    firebase.database().ref(roomName).on('child_added', function (snapshot) {
+      var node = document.createTextNode(snapshot.val().sender + ': ' + snapshot.val().message);
+      var pElement = document.createElement('p');
+      var divElement = document.createElement('div');
+
+      var chatWindow = document.getElementById('chatWindow');
+      pElement.appendChild(node);
+      divElement.appendChild(pElement);
+      if (snapshot.val().sender == userName) {
+        var btnElement = document.createElement('button');
+        btnElement.setAttribute('class', 'deleteMsgBtn');
+        btnElement.setAttribute('data-id', snapshot.key);
+        btnElement.setAttribute('onclick', 'deleteMessage(this);');
+        btnElement.onclick = function () { deleteMessage(this); };
+        divElement.appendChild(btnElement);
+      }
+      pElement.setAttribute('id', 'pDiv');
+      divElement.setAttribute('id', 'message-' + snapshot.key);
+      divElement.setAttribute('class', 'messageDiv');
+      chatWindow.appendChild(divElement);
+    });
+
+    //if messages are removed from firebase remove them from chat
+    firebase.database().ref(roomName).on('child_removed', function (snapshot) {
+      document.getElementById('message-' + snapshot.key).remove();
+    });
+
+    // delete own messages 
+    function deleteMessage(self) {
+      var messageID = self.getAttribute('data-id');
+      firebase.database().ref(roomName).child(messageID).remove()
+    }
+
+    // open/close chat
+    function openChat() {
+      var hudChat = document.getElementById('hudChat');
+      var hudChatLock = document.getElementById('hudChatLock');
+      if (chatOpen) {
+
+        if (hudChat.style.right === '2px') {
+          hudChat.style.right = '-350px';
+        } else { hudChat.style.right = '2px'; }
+      } else {
+        if (hudChat.style.right === '2px') {
+          hudChat.style.right = '-350px';
+          hudChatLock.style.right = '-350px';
+        } else {
+          hudChat.style.right = '2px';
+          hudChatLock.style.right = '2px';
+        }
+      }
+    }
+
+    function deleteOldMessages() {
+      /*delete old messages every 10 minutes*/
+      var ref = firebase.database().ref(roomName);
+      var now = Date.now();
+      var timer = now - deleteMessagesMinutes * 60 * 1000;
+      /*make a list of all messages that are too old*/
+      var old = ref.orderByChild('timestamp').endAt(timer).limitToLast(1);
+      /*delete old messages*/
+      var listener = old.on('child_added', function (snapshot) {
+        snapshot.ref.remove();
+      });
+    }
+
+    function setUserName() {
+      userName = document.getElementById('chatNameInput').value
+      hudChatLock = document.getElementById('hudChatLock')
+      if (userName.length > 0) {
+        deleteOldMessages();
+        if (hudChatLock.style.display != 'none') {
+          hudChatLock.style.display = 'none';
+        }
+
+      }
+    }
+
+    function sendMessage() {
+      var message = document.getElementById("chatTextarea").value;
+      if (message.length > 0) {
+        firebase.database().ref(roomName).push().set({
+          'sender': userName,
+          'message': message,
+          'timestamp': Date.now()
+        });
+        document.getElementById("chatTextarea").value = "";
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+    }
+  </script>
+  <style>
+    @media screen and (max-height: 700px) {
+      #hudChatWrapper {
+        bottom: -288px;
+      }
+
+      #hudChatLock {
+        height: 60%;
+      }
+
+      #hudChat {
+        height: 60%;
+      }
+    }
+  </style>
+</body>
