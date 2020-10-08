@@ -365,7 +365,7 @@
     var chatOpen = false;
     var viewer = WALK.getViewer();
     //how long messages are held 
-    var deleteMessagesMinutes = 15;
+    const deleteMessagesMinutes = 15;
     //room name directs chat messages to right room
     const roomName = 'example-room'
 
@@ -388,8 +388,8 @@
       if (snapshot.val().sender == userName) {
         var btnElement = document.createElement('button');
         btnElement.setAttribute('class', 'deleteMsgBtn');
-        btnElement.setAttribute('data-id', snapshot.key);
         btnElement.innerHTML = '<i class="fa fa-trash fa-2x" aria-hidden="true"></i>'
+        btnElement.setAttribute('data-id', snapshot.key);
         btnElement.setAttribute('onclick', 'deleteMessage(this);');
         btnElement.onclick = function () { deleteMessage(this); };
         divElement.appendChild(btnElement);
@@ -414,17 +414,23 @@
     // open/close chat
     function openChat() {
       var hudChat = document.getElementById('hudChat');
+      var hudChatWrapper = document.getElementById('hudChatWrapper');
       var hudChatLock = document.getElementById('hudChatLock');
       if (chatOpen) {
-
         if (hudChat.style.right === '2px') {
           hudChat.style.right = '-350px';
-        } else { hudChat.style.right = '2px'; }
+          hudChatWrapper.style.pointerEvents = 'none';
+        } else {
+          hudChatWrapper.style.pointerEvents = 'auto';
+          hudChat.style.right = '2px';
+        }
       } else {
         if (hudChat.style.right === '2px') {
           hudChat.style.right = '-350px';
           hudChatLock.style.right = '-350px';
+          hudChatWrapper.style.pointerEvents = 'none';
         } else {
+          hudChatWrapper.style.pointerEvents = 'auto';
           hudChat.style.right = '2px';
           hudChatLock.style.right = '2px';
         }
@@ -452,7 +458,6 @@
         if (hudChatLock.style.display != 'none') {
           hudChatLock.style.display = 'none';
         }
-
       }
     }
 
