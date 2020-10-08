@@ -1,6 +1,7 @@
 <head>
 
   <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap' rel='stylesheet'>
+  <script src="https://use.fontawesome.com/c2389414f5.js"></script>
 
 </head>
 <style>
@@ -27,7 +28,7 @@
     outline-color: rgba(0, 0, 0, 0.3);
     border: none;
 
-    background-image: url('<path-to-close-icon>');
+    background: transparent;
     background-repeat: no-repeat;
   }
 
@@ -259,7 +260,7 @@
     height: 26px;
     float: right;
     border: none;
-    background: transparent url('<path-to-trashbin.png>') no-repeat top;
+    background: transparent;
 
   }
 
@@ -314,8 +315,8 @@
     <div id='hudChat' class='hudBasic'>
       <div id='chatSettings'>
         <div id='chatTitle'>Chat</div>
-        <button id='x-button' class='close-help-button ui-close-hoverable chat-button-close'
-          onclick='openChat()'></button>
+        <button id='x-button' class='close-help-button ui-close-hoverable chat-button-close' onclick='openChat()'><i
+            class="fa fa-times fa-2x" aria-hidden="true"></i></button>
       </div>
 
       <div id='chatWindow'>
@@ -388,6 +389,7 @@
         var btnElement = document.createElement('button');
         btnElement.setAttribute('class', 'deleteMsgBtn');
         btnElement.setAttribute('data-id', snapshot.key);
+        btnElement.innerHTML = '<i class="fa fa-trash fa-2x" aria-hidden="true"></i>'
         btnElement.setAttribute('onclick', 'deleteMessage(this);');
         btnElement.onclick = function () { deleteMessage(this); };
         divElement.appendChild(btnElement);
